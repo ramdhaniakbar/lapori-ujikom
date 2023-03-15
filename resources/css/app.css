@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @import "~toastr/toastr.scss"; */
+
+@font-face {
+    font-family: "Plus Jakarta Sans";
+    src: url("assets/fonts/PlusJakartaSans-Regular.ttf");
+}
+
+body {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.container-padded-home {
+    padding: 0 15rem;
+}
+
+.container-padded-auth {
+    padding: 0 36rem;
+}
+
+.card-shadow {
+    box-shadow: 0px 4px 57px rgba(0, 0, 0, 0.07);
+}
