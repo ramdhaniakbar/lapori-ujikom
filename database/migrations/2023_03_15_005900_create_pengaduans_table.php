@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('pengaduans', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->index('fk_pengaduans_to_users');
+            $table->foreignId('kategori_pengaduan_id')->nullable()->index('fk_pengaduans_to_kategori_pengaduans');
             $table->string('judul_pengaduan');
             $table->longText('isi_pengaduan');
             $table->date('tanggal_kejadian');
