@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('petugas_id')->nullable()->index('fk_tanggapans_to_petugas');
             $table->foreignId('pengaduan_id')->nullable()->index('fk_tanggapans_to_pengaduans');
             $table->longText('isi_tanggapan');
-            $table->date('tanggal_pengaduan');
+            $table->date('tanggal_tanggapan');
             $table->timestamps();
             $table->softDeletes();
         });
