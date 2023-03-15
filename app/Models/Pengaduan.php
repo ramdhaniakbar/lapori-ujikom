@@ -27,6 +27,7 @@ class Pengaduan extends Model
         'isi_pengaduan',
         'tanggal_kejadian',
         'lokasi_kejadian',
+        'bukti_foto',
         'status',
         'created_at',
         'updated_at',

@@ -15,26 +15,26 @@
 
       <div class="flex space-x-5 mb-10">
          <div class="flex flex-col w-full space-y-2">
-            <label for="title_report" class="font-medium">Ketik Judul Laporan Anda *</label>
-            <input type="text" id="title_report" name="title_report" value="{{ old('title_report') }}"
-               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('title_report') border-red-color @enderror">
+            <label for="judul_pengaduan" class="font-medium">Ketik Judul Laporan Anda *</label>
+            <input type="text" id="judul_pengaduan" name="judul_pengaduan" value="{{ old('judul_pengaduan') }}"
+               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('judul_pengaduan') border-red-color @enderror">
 
-            @error('title_report')
+            @error('judul_pengaduan')
             <p class="mt-2 text-sm text-red-color">{{ $message }}</p>
             @enderror
          </div>
 
          <div class="flex flex-col w-full space-y-2">
-            <label for="report_category_id" class="font-medium">Pilih Kategori Laporan Anda</label>
-            <select name="report_category_id" id="report_category_id"
+            <label for="kategori_pengaduan_id" class="font-medium">Pilih Kategori Laporan Anda</label>
+            <select name="kategori_pengaduan_id" id="kategori_pengaduan_id"
                class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('email') border-red-color @enderror"
-               value="{{ old('report_category_id') }}">
-               @foreach ($report_categories as $key => $report_category)
-               <option value="{{ $report_category->id }}">{{ $report_category->name }}</option>
+               value="{{ old('kategori_pengaduan_id') }}">
+               @foreach ($kategori_pengaduans as $key => $kategori_pengaduan)
+               <option value="{{ $kategori_pengaduan->id }}">{{ $kategori_pengaduan->nama }}</option>
                @endforeach
             </select>
 
-            @error('report_category_id')
+            @error('kategori_pengaduan_id')
             <p class="mt-2 text-sm text-red-color">{{ $message }}</p>
             @enderror
          </div>
@@ -42,43 +42,43 @@
 
       <div class="flex space-x-5 mb-10">
          <div class="flex flex-col w-full space-y-2">
-            <label for="incident_date" class="font-medium">Pilih Tanggal Kejadian *</label>
-            <input type="date" id="incident_date" name="incident_date" value="{{ old('incident_date') }}"
-               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('incident_date') border-red-color @enderror">
+            <label for="tanggal_kejadian" class="font-medium">Pilih Tanggal Kejadian *</label>
+            <input type="date" id="tanggal_kejadian" name="tanggal_kejadian" value="{{ old('tanggal_kejadian') }}"
+               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('tanggal_kejadian') border-red-color @enderror">
 
-            @error('incident_date')
+            @error('tanggal_kejadian')
             <p class="mt-2 text-sm text-red-color">{{ $message }}</p>
             @enderror
          </div>
 
          <div class="flex flex-col w-full space-y-2">
-            <label for="location_incident" class="font-medium">Ketik Lokasi Kejadian *</label>
-            <input type="text" id="location_incident" name="location_incident" value="{{ old('location_incident') }}"
-               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('location_incident') border-red-color @enderror">
+            <label for="lokasi_kejadian" class="font-medium">Ketik Lokasi Kejadian *</label>
+            <input type="text" id="lokasi_kejadian" name="lokasi_kejadian" value="{{ old('lokasi_kejadian') }}"
+               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('lokasi_kejadian') border-red-color @enderror">
 
-            @error('location_incident')
+            @error('lokasi_kejadian')
             <p class="mt-2 text-sm text-red-color">{{ $message }}</p>
             @enderror
          </div>
       </div>
 
       <div class="flex flex-col w-full space-y-2 mb-10">
-         <label for="report_image" class="font-medium">Upload Bukti Foto</label>
-         <input type="file" id="report_image" name="report_image" value="{{ old('report_image') }}"
-            class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('report_image') border-red-color @enderror">
+         <label for="bukti_foto" class="font-medium">Upload Bukti Foto</label>
+         <input type="file" accept="image/png, image/svg, image/jpeg" id="bukti_foto" name="bukti_foto" value="{{ old('bukti_foto') }}"
+            class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('bukti_foto') border-red-color @enderror">
 
-         @error('report_image')
+         @error('bukti_foto')
          <p class="mt-2 text-sm text-red-color">{{ $message }}</p>
          @enderror
       </div>
 
       <div class="flex space-x-5 mb-10">
          <div class="flex flex-col w-full space-y-2">
-            <label for="body_report" class="font-medium">Ketik Isi Laporan Anda *</label>
-            <textarea name="body_report" id="body_report" cols="30" rows="10"
-               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('body_report') border-red-color @enderror">{{ old('body_report') }}</textarea>
+            <label for="isi_pengaduan" class="font-medium">Ketik Isi Laporan Anda *</label>
+            <textarea name="isi_pengaduan" id="isi_pengaduan" cols="30" rows="10"
+               class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('isi_pengaduan') border-red-color @enderror">{{ old('isi_pengaduan') }}</textarea>
 
-            @error('body_report')
+            @error('isi_pengaduan')
             <p class="mt-2 text-sm text-red-color">{{ $message }}</p>
             @enderror
          </div>

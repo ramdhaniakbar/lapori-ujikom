@@ -8,7 +8,7 @@
         <a href="{{ route('index') }}">Home</a>
      </li>
      <li class="mr-6">
-        <a href="#">Buat Laporan</a>
+        <a href="{{ route('lapor.create') }}">Buat Laporan</a>
      </li>
      <li class="mr-6">
         <a href="#">Tentang Lapor!</a>

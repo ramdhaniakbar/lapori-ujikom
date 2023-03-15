@@ -23,4 +23,6 @@
      </div>
      <div class="flex-auto">
         <img src="{{ asset('assets/frontsite/images/Hero_Images.svg') }}" alt="Hero Image" style="width: 1350px">
-   
+     </div>
+  </div>
+</div>

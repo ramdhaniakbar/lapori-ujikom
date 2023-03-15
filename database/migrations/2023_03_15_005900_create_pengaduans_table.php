@@ -19,6 +19,7 @@ return new class extends Migration
             $table->longText('isi_pengaduan');
             $table->date('tanggal_kejadian');
             $table->longText('lokasi_kejadian');
+            $table->longText('bukti_foto');
             $table->enum('status', ['pending', 'ditolak', 'proses', 'selesai'])->default('pending');
             $table->timestamps();
             $table->softDeletes();

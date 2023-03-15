@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontsite;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pengaduan;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -13,7 +14,11 @@ class LandingController extends Controller
      */
     public function index(): View
     {
-        return view('pages.frontsite.landing-page.index');
+        $jumlah_pengaduan = Pengaduan::count();
+        $pengaduan_success = Pengaduan::with('user')->where('status', 'selesai')->latest()->take(5)->get();
+        $pengaduan_terbaru = Pengaduan::with('user')->latest()->take(5)->get();
+
+        return view('pages.frontsite.landing-page.index', compact('jumlah_pengaduan', 'pengaduan_success', 'pengaduan_terbaru'));
     }
 
     /**

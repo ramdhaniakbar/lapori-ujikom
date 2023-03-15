@@ -45,6 +45,8 @@ class RegisterController extends Controller
 
         Auth::login($user);
 
+        toastr()->success('Register Berhasil!');
+
         return redirect()->route('index');
     }
 

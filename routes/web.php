@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Frontsite\LandingController;
 use App\Http\Controllers\Backsite\DashboardController;
+use App\Http\Controllers\Frontsite\PengaduanUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::middleware(['authGuards'])->group(function () {
     });
 
     // lapor
-    Route::resource('lapor', UserReportController::class);
+    Route::resource('lapor', PengaduanUserController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
 });

@@ -11,7 +11,7 @@ class StorePengaduanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StorePengaduanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'kategori_pengaduan_id' => ['required', 'integer'],
+            'judul_pengaduan' => ['required', 'string', 'max:255'],
+            'isi_pengaduan' => ['required', 'string'],
+            'tanggal_kejadian' => ['required', 'date'],
+            'lokasi_kejadian' => ['required', 'string'],
+            'bukti_foto' => ['image', 'max:10000', 'mimes:jpg,png,jpeg,svg'],
         ];
     }
 }
