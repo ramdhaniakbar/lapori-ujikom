@@ -42,7 +42,7 @@
          <div class="flex items-center space-x-2.5">
             <img src="{{ asset('assets/frontsite/images/user-profile.svg') }}" class="w-[33px] rounded-full"
                alt="user_1">
-            {{-- <span class="text-[13px] font-medium text-black-color">{{ $value->user->nama }}</span> --}}
+            <span class="text-[13px] font-medium text-black-color">{{ $value->user->nama }}</span>
          </div>
       </div>
       @empty
@@ -62,7 +62,7 @@
             <div class="flex items-center space-x-2.5">
                <img src="{{ asset('assets/frontsite/images/user-profile.svg') }}" class="w-[33px] rounded-full"
                   alt="user_1">
-               {{-- <span class="text-[13px] font-medium text-black-color">{{ $value->user->nama }}</span> --}}
+               <span class="text-[13px] font-medium text-black-color">{{ $value->user->nama }}</span>
             </div>
             <div class="flex space-x-5">
                <span class="text-[12px] text-black-color">{{ $value->created_at->diffForHumans() }}</span>

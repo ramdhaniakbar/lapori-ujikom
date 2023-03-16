@@ -38,6 +38,7 @@ Route::middleware(['authGuards'])->group(function () {
     });
 
     // lapor
+    Route::get('laporan_kamu', [PengaduanUserController::class, 'laporan_kamu'])->name('laporan_kamu');
     Route::resource('lapor', PengaduanUserController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');

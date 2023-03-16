@@ -64,7 +64,8 @@
 
       <div class="flex flex-col w-full space-y-2 mb-10">
          <label for="bukti_foto" class="font-medium">Upload Bukti Foto</label>
-         <input type="file" accept="image/png, image/svg, image/jpeg" id="bukti_foto" name="bukti_foto" value="{{ old('bukti_foto') }}"
+         <input type="file" accept="image/png, image/svg, image/jpeg" id="bukti_foto" name="bukti_foto"
+            value="{{ old('bukti_foto') }}"
             class="w-full py-3.5 px-[20px] border-[1.5px] border-input-color focus:outline-dark-gray rounded-xl @error('bukti_foto') border-red-color @enderror">
 
          @error('bukti_foto')
