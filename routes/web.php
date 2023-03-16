@@ -6,6 +6,10 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Frontsite\LandingController;
 use App\Http\Controllers\Backsite\DashboardController;
+use App\Http\Controllers\Backsite\KategoriPengaduanController;
+use App\Http\Controllers\Backsite\PengaduanController;
+use App\Http\Controllers\Backsite\TanggapanController;
+use App\Http\Controllers\Backsite\UserController;
 use App\Http\Controllers\Frontsite\PengaduanUserController;
 
 /*
@@ -35,6 +39,18 @@ Route::middleware(['authGuards'])->group(function () {
 
         // dashboard
         Route::resource('dashboard', DashboardController::class);
+
+        // kategori pengaduan
+        Route::resource('kategori_pengaduan', KategoriPengaduanController::class);
+
+        // pengaduan
+        Route::resource('pengaduan', PengaduanController::class);
+
+        // kategori pengaduan
+        Route::resource('tanggapan', TanggapanController::class);
+
+        // kategori pengaduan
+        Route::resource('user', UserController::class);
     });
 
     // lapor

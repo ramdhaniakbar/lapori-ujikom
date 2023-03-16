@@ -11,7 +11,7 @@ class StoreKategoriPengaduanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreKategoriPengaduanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama' => ['required', 'string', 'max:255', 'unique:kategori_pengaduans']
         ];
     }
 }

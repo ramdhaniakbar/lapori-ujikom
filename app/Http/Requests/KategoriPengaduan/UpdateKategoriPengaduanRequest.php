@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\KategoriPengaduan;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateKategoriPengaduanRequest extends FormRequest
@@ -11,7 +12,7 @@ class UpdateKategoriPengaduanRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +23,7 @@ class UpdateKategoriPengaduanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama' => ['required', 'string', 'max:255', Rule::unique('kategori_pengaduans')->ignore($this->kategori_pengaduans)]
         ];
     }
 }
