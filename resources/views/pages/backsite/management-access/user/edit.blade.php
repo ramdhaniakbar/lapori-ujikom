@@ -66,20 +66,19 @@
                   <form class="form form-horizontal" action="{{ route('backsite.user.update', $user->id) }}"
                       method="POST">
 
+                      @method('PUT')
                       @csrf
+                      <input type="hidden" id="password" name="password" class="form-control"
+                        placeholder="********" value="{{ isset($user) ? $user->password : '' }}" autocomplete="off"
+                        required>
 
                       <div class="form-body">
-                          <div class="form-section">
-                            <p>Harap lengkapi input yang <code>required</code>, sebelum Anda mengklik tombol
-                                kirim.</p>
-                          </div>
-
                           <div class="form-group row">
                             <label class="col-md-3 label-control" for="nama">Nama Petugas<code
                                   style="color:red;">required</code></label>
                             <div class="col-md-9 mx-auto">
                                 <input type="text" id="nama" name="nama" class="form-control"
-                                  placeholder="contoh John" value="{{ old('nama')}}" autocomplete="off"
+                                  placeholder="contoh John" value="{{ isset($user) ? $user->nama : '' }}" autocomplete="off"
                                   required>
 
                                 @if($errors->has('nama'))
@@ -93,7 +92,7 @@
                                   style="color:red;">required</code></label>
                             <div class="col-md-9 mx-auto">
                                 <input type="email" id="email" name="email" class="form-control"
-                                  placeholder="contoh john@gmail.com" value="{{old('email')}}" autocomplete="off"
+                                  placeholder="contoh john@gmail.com" value="{{ isset($user) ? $user->email : '' }}" autocomplete="off"
                                   required>
 
                                 @if($errors->has('email'))
@@ -102,27 +101,12 @@
                             </div>
                           </div>
 
-                          <div class="form-group row">
-                          <label class="col-md-3 label-control" for="password">Password<code
-                                style="color:red;">required</code></label>
-                            <div class="col-md-9 mx-auto">
-                              <input type="password" id="password" name="password" class="form-control"
-                                  placeholder="********" value="{{old('password')}}" autocomplete="off"
-                                  required>
-
-                              @if($errors->has('password'))
-                              <p style="font-style: bold; color: red;">{{ $errors->first('password') }}</p>
-                              @endif
-                            </div>
-                          </div>
-
                         <div class="form-group row">
                         <label class="col-md-3 label-control" for="role">Role<code style="color:red;">required</code></label>
                         <div class="col-md-9 mx-auto">
                             <select name="role" id="role" class="form-control">
-                                <option selected disabled>Pilih Role</option>
-                                <option value="admin">Admin</option>
-                                <option value="petugas">Petugas</option>
+                                <option value="admin @if($user->role == 'admin') selected @endif">Admin</option>
+                                <option value="petugas @if($user->role == 'petugas') selected @endif">Petugas</option>
                             </select>
 
                             @if($errors->has('role'))

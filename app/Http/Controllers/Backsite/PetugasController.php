@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Petugas\StorePetugasRequest;
+use App\Http\Requests\Petugas\UpdatePetugasRequest;
 
 class PetugasController extends Controller
 {
@@ -41,7 +42,7 @@ class PetugasController extends Controller
 
         toastr()->success('Petugas Berhasil Dibuat!');
 
-        return redirect()->route('index');
+        return redirect()->route('backsite.user.index');
     }
 
     /**
@@ -63,16 +64,26 @@ class PetugasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdatePetugasRequest $request, Petugas $user)
     {
-        return abort(404);
+        $data = $request->all();
+
+        $update_petugas = $user->update($data);
+
+        toastr()->success('Petugas Berhasil Diupdate!');
+
+        return redirect()->route('backsite.user.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Petugas $user)
     {
-        return abort(404);
+        $user->forceDelete();
+
+        toastr()->success('Petugas Berhasil Dihapus!');
+
+        return back();
     }
 }
