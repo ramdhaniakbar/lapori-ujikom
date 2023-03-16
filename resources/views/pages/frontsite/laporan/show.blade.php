@@ -45,6 +45,7 @@
   </div>
 
   <div>
+    @if ($lapor->tanggapan)
     <h2 class="font-semibold text-[30px] text-black-color mb-[38px]">Tanggapan</h2>
 
     <hr class="text-[#DBDBDB]">
@@ -53,17 +54,13 @@
       <div class="flex items-start space-x-6">
         <img src="{{ asset('assets/frontsite/images/user-profile.svg') }}" style="width: 70px;" alt="profile user">
         <div class="flex flex-col">
-          <span class="font-medium text-black-color text-[24px]">Julian Malcolm</span>
-          <span class="text-black-color text-[16px] mb-[20px]">Admin</span>
-          <p class="font-medium text-[20px] text-dark-gray">Berikut saya lampirkan tanggapan dari bpn
-            banyuwangi pada laporan saya sebelumnya perihal permohonan
-            konversi nb
-            91952/2022. menurut saya tanggapan tersebut sangat kacau, tidak profesional dan tidak mempunyai dasar
-            hukum. saya merasa
-            sangat dipermain....</p>
+            <span class="font-medium text-black-color text-[24px]">{{ $lapor->tanggapan->petugas->nama }}</span>
+          <span class="text-black-color capitalize text-[16px] mb-[20px]">{{ $lapor->tanggapan->petugas->role }}</span>
+          <p class="font-medium text-[20px] text-dark-gray">{{ $lapor->tanggapan->isi_tanggapan }}</p>
         </div>
       </div>
     </div>
+    @endif
   </div>
 </div>
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Tanggapan;
+namespace App\Http\Requests\Petugas;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTanggapanRequest extends FormRequest
+class StorePetugasRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,10 @@ class UpdateTanggapanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'isi_tanggapan' => ['required', 'string'],
-            'tanggal_tanggapan' => ['required', 'date'],
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:petugas,email', 'max:255'],
+            'password' => ['required', 'min:8', 'string', 'max:255'],
+            'role' => ['required', 'string']
         ];
     }
 }

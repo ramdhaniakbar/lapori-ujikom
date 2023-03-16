@@ -79,7 +79,6 @@ class PengaduanUserController extends Controller
      */
     public function show(Pengaduan $lapor)
     {
-        // return $lapor;
         $tanggal_kejadian = Carbon::parse($lapor->tanggal_kejadian)->format('F j, Y');
         return view('pages.frontsite.laporan.show', compact('lapor', 'tanggal_kejadian'));
     }

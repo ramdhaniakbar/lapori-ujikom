@@ -61,6 +61,6 @@ class Pengaduan extends Model
      */
     public function tanggapan(): HasOne
     {
-        return $this->hasOne(Tanggapan::class, 'pengaduan_id');
+        return $this->hasOne(Tanggapan::class, 'pengaduan_id')->with('petugas');
     }
 }

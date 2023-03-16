@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('title', 'Tanggapan - Create')
+@section('title', 'Tanggapan - Edit')
 
 @section('content')
 <!-- BEGIN: Content -->
@@ -32,7 +32,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item">Dashboard</li>
               <li class="breadcrumb-item">Tanggapan</li>
-              <li class="breadcrumb-item active">Tambah</li>
+              <li class="breadcrumb-item active">Edit</li>
             </ol>
           </div>
         </div>
@@ -47,8 +47,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title mb-1" id="horz-layout-basic">Tambah Tanggapan Ke Pengaduan {{ $pengaduan->id }}</h4>
-                <span class="text-dark-gray">Judul Pengaduan: {{ $pengaduan->judul_pengaduan }}</span>
+                <h4 class="card-title" id="horz-layout-basic">Edit Tanggapan</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                   <ul class="list-inline mb-0">
@@ -63,19 +62,20 @@
                     <p>Harap lengkapi input yang <code>required</code>, sebelum Anda mengklik tombol
                       kirim.</p>
                   </div>
-                  <form class="form form-horizontal" action="{{ route('backsite.tanggapan.store_tanggapan_by_id', $pengaduan->id) }}" method="POST">
+                  <form class="form form-horizontal" action="{{ route('backsite.tanggapan.update', $tanggapan->id) }}" method="POST">
 
+                    @method('PUT')
                     @csrf
 
                     <div class="form-body">
 
-                      <h4 class="form-section"><i class="fa fa-edit"></i>Form Kategori Tanggapan</h4>
+                      <h4 class="form-section"><i class="fa fa-edit"></i>Form Tanggapan</h4>
 
                       <div class="form-group row">
                         <label class="col-md-3 label-control" for="isi_tanggapan">Isi Tanggapan<code
                             style="color:red;">required</code></label>
                         <div class="col-md-9 mx-auto">
-                          <textarea name="isi_tanggapan" id="isi_tanggapan" class="form-control" cols="30" rows="10" placeholder="contoh Baik, akan kami diskusikan dengan tim" value="{{ old('judul_pengaduan') }}" required></textarea>
+                          <textarea name="isi_tanggapan" id="isi_tanggapan" class="form-control" cols="30" rows="10" placeholder="contoh Baik, akan kami diskusikan dengan tim" required>{{ isset($tanggapan) ? $tanggapan->isi_tanggapan : '' }}</textarea>
 
                           @if($errors->has('isi_tanggapan'))
                           <p style="font-style: bold; color: red;">{{ $errors->first('isi_tanggapan') }}</p>
@@ -88,7 +88,7 @@
                             style="color:red;">required</code></label>
                         <div class="col-md-9 mx-auto">
                           <input type="date" id="tanggal_tanggapan" name="tanggal_tanggapan" class="form-control"
-                          value="{{ old('judul_pengaduan') }}" autocomplete="off"
+                          value="{{ isset($tanggapan) ? $tanggapan->tanggal_tanggapan : '' }}" autocomplete="off"
                             required>
 
                           @if($errors->has('tanggal_tanggapan'))
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="form-actions text-right">
-                      <a href="{{ route('backsite.pengaduan.index') }}" style="width:120px;"
+                      <a href="{{ route('backsite.kategori_pengaduan.index') }}" style="width:120px;"
                         class="btn bg-blue-grey text-white mr-1"
                         onclick="return confirm('Are you sure want to close this page? , Any changes you make will not be saved.')">
                         <i class="ft-x"></i> Cancel

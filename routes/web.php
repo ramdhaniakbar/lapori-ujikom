@@ -8,8 +8,8 @@ use App\Http\Controllers\Frontsite\LandingController;
 use App\Http\Controllers\Backsite\DashboardController;
 use App\Http\Controllers\Backsite\KategoriPengaduanController;
 use App\Http\Controllers\Backsite\PengaduanController;
+use App\Http\Controllers\Backsite\PetugasController;
 use App\Http\Controllers\Backsite\TanggapanController;
-use App\Http\Controllers\Backsite\UserController;
 use App\Http\Controllers\Frontsite\PengaduanUserController;
 
 /*
@@ -44,6 +44,7 @@ Route::middleware(['authGuards'])->group(function () {
         Route::resource('kategori_pengaduan', KategoriPengaduanController::class);
 
         // pengaduan
+        Route::put('/pengaduan/status_selesai/{pengaduan}', [PengaduanController::class, 'status_selesai'])->name('pengaduan.status_selesai');
         Route::put('/pengaduan/tolak_status/{pengaduan}', [PengaduanController::class, 'tolak_status'])->name('pengaduan.tolak_status');
         Route::put('/pengaduan/status_kembali/{pengaduan}', [PengaduanController::class, 'status_kembali'])->name('pengaduan.status_kembali');
         Route::resource('pengaduan', PengaduanController::class);
@@ -53,8 +54,8 @@ Route::middleware(['authGuards'])->group(function () {
         Route::post('/tanggapan/store_tanggapan_by_id/{pengaduan}', [TanggapanController::class, 'storeTanggapanById'])->name('tanggapan.store_tanggapan_by_id');
         Route::resource('tanggapan', TanggapanController::class);
 
-        // kategori pengaduan
-        Route::resource('user', UserController::class);
+        // petugas routes
+        Route::resource('user', PetugasController::class);
     });
 
     // lapor

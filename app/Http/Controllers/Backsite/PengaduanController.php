@@ -15,7 +15,8 @@ class PengaduanController extends Controller
     public function index()
     {
         $pengaduans = Pengaduan::latest()->get();
-        return view('pages.backsite.operational.pengaduan.index', compact('pengaduans'));
+        $pengaduans_pending = Pengaduan::where('status', 'pending')->get();
+        return view('pages.backsite.operational.pengaduan.index', compact('pengaduans', 'pengaduans_pending'));
     }
 
     /**
@@ -66,9 +67,19 @@ class PengaduanController extends Controller
         return abort(404);
     }
 
+    public function status_selesai(Pengaduan $pengaduan)
+    {
+        $status_selesai = $pengaduan->update(['status' => 'selesai']);
+
+        toastr()->success('Status Pengaduan Selesai!');
+
+        return back();
+    }
+
     public function tolak_status(Pengaduan $pengaduan)
     {
-        $tolak_status = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'ditolak']);
+        $tolak_status = $pengaduan->update(['status' => 'ditolak']);
+        // $tolak_status = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'ditolak']);
 
         toastr()->success('Pengaduan Berhasil Ditolak!');
 
@@ -77,7 +88,9 @@ class PengaduanController extends Controller
 
     public function status_kembali(Pengaduan $pengaduan)
     {
-        $status_kembali = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'pending']);
+        $status_kembali = $pengaduan->update(['status' => 'pending']);
+
+        // $status_kembali = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'pending']);
 
         toastr()->success('Status Pengaduan Berhasil Kembali!');
 

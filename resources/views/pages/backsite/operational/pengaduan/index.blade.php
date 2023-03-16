@@ -115,7 +115,7 @@
                                                 <div class="col-md-9 mx-auto">
                                                     <select name="pengaduan_id" id="pengaduan_id" class="form-control">
                                                         <option selected disabled>Pilih Pengaduan</option>
-                                                        @foreach ($pengaduans as $key => $pengaduan)
+                                                        @foreach ($pengaduans_pending as $key => $pengaduan)
                                                         <option value="{{ $pengaduan->id }}">{{ $pengaduan->user->nik }} -
                                                             {{
                                                             $pengaduan->judul_pengaduan }}</option>
@@ -207,10 +207,23 @@
                                                                     Show
                                                                 </a>
 
+                                                                @if ($pengaduan->status == 'pending')
                                                                 <a class="dropdown-item"
-                                                                  href="{{ route('backsite.tanggapan.buat_tanggapan_by_id', $pengaduan->id) }}">
-                                                                  Tanggapi
+                                                                    href="{{ route('backsite.tanggapan.buat_tanggapan_by_id', $pengaduan->id) }}">
+                                                                    Tanggapi
                                                                 </a>
+                                                                @endif
+
+                                                                @if ($pengaduan->status == 'proses')
+                                                                <form action="{{ route('backsite.pengaduan.status_selesai', $pengaduan->id) }}" method="POST"
+                                                                    onsubmit="return confirm('Apa kamu yakin ingin menolak pengaduan ini?');">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <input type="submit" class="dropdown-item"
+                                                                        value="Selesai">
+                                                                  </form>
+                                                                @endif
 
                                                                 @if ($pengaduan->status != 'ditolak')
                                                                   <form action="{{ route('backsite.pengaduan.tolak_status', $pengaduan->id) }}" method="POST"

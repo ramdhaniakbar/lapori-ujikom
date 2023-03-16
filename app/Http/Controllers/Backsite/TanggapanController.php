@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Tanggapan\StoreTanggapanRequest;
+use App\Http\Requests\Tanggapan\UpdateTanggapanRequest;
 
 class TanggapanController extends Controller
 {
@@ -17,7 +18,9 @@ class TanggapanController extends Controller
      */
     public function index()
     {
-        return abort(404);
+        $tanggapans = Tanggapan::with('pengaduan', 'petugas')->latest()->get();
+        // return $tanggapans;
+        return view('pages.backsite.operational.tanggapan.index', compact('tanggapans'));
     }
 
     /**
@@ -31,33 +34,53 @@ class TanggapanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTanggapanRequest $request)
     {
-        return abort(404);
+        $data = $request->all();
+
+        $petugas_id = Auth::guard(session('guard'))->user()->id;
+        $pengaduan_id = $request->pengaduan_id;
+
+        $data['petugas_id'] = $petugas_id;
+        $data['pengaduan_id'] = $pengaduan_id;
+
+        $tanggapan = Tanggapan::create($data);
+
+        $update_status = Pengaduan::find($pengaduan_id)->update(['status' => 'proses']);
+
+        toastr()->success('Tanggapan Berhasil Dibuat!');
+
+        return redirect()->route('backsite.tanggapan.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Tanggapan $tanggapan)
     {
-        return abort(404);
+        return view('pages.backsite.operational.tanggapan.show', compact('tanggapan'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Tanggapan $tanggapan)
     {
-        return abort(404);
+        return view('pages.backsite.operational.tanggapan.edit', compact('tanggapan'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTanggapanRequest $request, Tanggapan $tanggapan)
     {
-        return abort(404);
+        $data = $request->all();
+
+        $tanggapan->update($data);
+
+        toastr()->success('Tanggapan Berhasil Diedit!');
+
+        return redirect()->route('backsite.tanggapan.index');
     }
 
     /**
@@ -84,6 +107,8 @@ class TanggapanController extends Controller
         $data['pengaduan_id'] = $pengaduan_id;
 
         $tanggapan = Tanggapan::create($data);
+
+        $pengaduan->update(['status' => 'proses']);
 
         toastr()->success('Tanggapan Berhasil Dibuat!');
 
