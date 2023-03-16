@@ -44,9 +44,13 @@ Route::middleware(['authGuards'])->group(function () {
         Route::resource('kategori_pengaduan', KategoriPengaduanController::class);
 
         // pengaduan
+        Route::put('/pengaduan/tolak_status/{pengaduan}', [PengaduanController::class, 'tolak_status'])->name('pengaduan.tolak_status');
+        Route::put('/pengaduan/status_kembali/{pengaduan}', [PengaduanController::class, 'status_kembali'])->name('pengaduan.status_kembali');
         Route::resource('pengaduan', PengaduanController::class);
 
         // kategori pengaduan
+        Route::get('/tanggapan/buat_tanggapan_by_id/{pengaduan}', [TanggapanController::class, 'createTanggapanById'])->name('tanggapan.buat_tanggapan_by_id');
+        Route::post('/tanggapan/store_tanggapan_by_id/{pengaduan}', [TanggapanController::class, 'storeTanggapanById'])->name('tanggapan.store_tanggapan_by_id');
         Route::resource('tanggapan', TanggapanController::class);
 
         // kategori pengaduan

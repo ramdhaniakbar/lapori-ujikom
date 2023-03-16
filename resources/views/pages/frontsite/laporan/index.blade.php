@@ -14,7 +14,9 @@
   <div class="flex flex-col px-6 py-6 space-y-8 mb-[128px]">
     @forelse ($pengaduan_terbaru as $key => $value)
     <div class="w-full card-shadow rounded-lg p-[42px]">
-      <h4 class="text-[20px] text-black-color font-semibold mb-4">{{ $value->judul_pengaduan }}</h4>
+      <a href="{{ route('lapor.show', $value->id) }}">
+        <h4 class="text-[20px] text-black-color font-semibold mb-4">{{ $value->judul_pengaduan }}</h4>
+      </a>
       <p class="text-[13px] font-medium text-paragraph-color mb-4">{{ $value->isi_pengaduan }}</p>
       <div class="flex justify-between items-center">
         <div class="flex items-center space-x-2.5">

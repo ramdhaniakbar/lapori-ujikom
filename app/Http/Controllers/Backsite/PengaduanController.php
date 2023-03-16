@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Backsite;
 
 use App\Http\Controllers\Controller;
+use App\Models\Pengaduan;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PengaduanController extends Controller
 {
@@ -12,7 +14,8 @@ class PengaduanController extends Controller
      */
     public function index()
     {
-        //
+        $pengaduans = Pengaduan::latest()->get();
+        return view('pages.backsite.operational.pengaduan.index', compact('pengaduans'));
     }
 
     /**
@@ -20,7 +23,7 @@ class PengaduanController extends Controller
      */
     public function create()
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -28,23 +31,23 @@ class PengaduanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return abort(404);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Pengaduan $pengaduan)
     {
-        //
+        return view('pages.backsite.operational.pengaduan.show', compact('pengaduan'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Pengaduan $pengaduan)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -52,7 +55,7 @@ class PengaduanController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -60,6 +63,24 @@ class PengaduanController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return abort(404);
+    }
+
+    public function tolak_status(Pengaduan $pengaduan)
+    {
+        $tolak_status = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'ditolak']);
+
+        toastr()->success('Pengaduan Berhasil Ditolak!');
+
+        return back();
+    }
+
+    public function status_kembali(Pengaduan $pengaduan)
+    {
+        $status_kembali = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'pending']);
+
+        toastr()->success('Status Pengaduan Berhasil Kembali!');
+
+        return back();
     }
 }
