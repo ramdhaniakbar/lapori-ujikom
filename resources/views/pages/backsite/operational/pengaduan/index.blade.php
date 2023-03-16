@@ -149,6 +149,26 @@
             </section>
         </div>
 
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title mb-2">Generate Laporan</h4>
+                <form action="{{ route('backsite.pengaduan.generate_laporan') }}" method="get">
+                    
+                    <div class="form-group">
+                        <label class="label-control" for="tanggal_1">Dari Tanggal<code style="color:red;">required</code></label>
+                        <input type="date" name="tanggal_1" id="tanggal_1" min="1" max="31" class="form-control" value="{{ old('tanggal_1') }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label-control" for="tanggal_2">Dari Tanggal<code style="color:red;">required</code></label>
+                        <input type="date" name="tanggal_2" id="tanggal_2" min="1" max="31" class="form-control" value="{{ old('tanggal_2') }}">
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </form>
+            </div>
+        </div>
+
         {{-- table card --}}
         <div class="content-body">
             <section id="table-home">
@@ -167,6 +187,7 @@
                                     </ul>
                                 </div>
                             </div>
+
 
                             <div class="card-content collapse show">
                                 <div class="card-body card-dashboard">

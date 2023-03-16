@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Backsite;
 
-use App\Http\Controllers\Controller;
 use App\Models\Pengaduan;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class PengaduanController extends Controller
 {
@@ -95,5 +98,33 @@ class PengaduanController extends Controller
         toastr()->success('Status Pengaduan Berhasil Kembali!');
 
         return back();
+    }
+
+    public function generate_laporan(Request $request)
+    {
+
+        if ($request['tanggal_1'] || $request['tanggal_2']) {
+            $pengaduans = Pengaduan::whereBetween('created_at', [$request['tanggal_1'], $request['tanggal_2']])->with('tanggapan', 'user')->latest()->get();
+
+            $data = [
+                'nama_petugas' => Auth::guard(session('guard'))->user()->nama,
+                'pengaduans' => $pengaduans,
+                // 'tanggal_print' => Carbon::now(),
+            ];
+
+            $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data);
+            return $pdf->stream();
+        } else {
+            $pengaduans = Pengaduan::with('tanggapan', 'user')->latest()->get();
+
+            $data = [
+                'nama_petugas' => Auth::guard(session('guard'))->user()->nama,
+                'pengaduans' => $pengaduans,
+                // 'tanggal_print' => Carbon::now(),
+            ];
+
+            $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data);
+            return $pdf->stream();
+        }
     }
 }

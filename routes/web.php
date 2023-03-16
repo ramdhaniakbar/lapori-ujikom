@@ -56,6 +56,9 @@ Route::middleware(['authGuards'])->group(function () {
 
         // petugas routes
         Route::resource('user', PetugasController::class);
+
+        // generate laporan
+        Route::get('/generate_laporan', [PengaduanController::class, 'generate_laporan'])->name('pengaduan.generate_laporan');
     });
 
     // lapor
