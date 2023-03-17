@@ -1,15 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-   <title>PDF Report</title>
+
+   <title>Laporan Pengaduan Masyarakat</title>
+
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+      }
+
+      .header {
+         display: flex;
+         justify-content: space-between;
+      }
+
+      .header h2 {
+         margin: 0;
+      }
+
+      .header span {
+         margin: 0;
+      }
+
+      .tanggal {
+         display: flex;
+         justify-content: space-between;
+      }
+
+      .table {
+         border-collapse: collapse;
+         width: 100%;
+      }
+
+      .table th,
+      .table td {
+         border: 1px solid #ddd;
+         padding: 8px;
+         text-align: left;
+      }
+
+      .table th {
+         background-color: #f2f2f2;
+         font-weight: bold;
+      }
+
+      .table tbody tr:nth-child(even) {
+         background-color: #f9f9f9;
+      }
+
+      .table tbody tr:hover {
+         background-color: #f5f5f5;
+      }
+   </style>
 </head>
+
 <body>
-  <h2>Nama Petugas: {{ $nama_petugas }}</h2>
-  <span style="margin-bottom: 10px; display: inline-block;">Tanggal Print: {{ now()->format('D, d M Y') }}</span>
-   <table border="1" cellspacing="0" cellpadding="2">
+   <div class="header">
+      <h2>Nama Petugas: {{ $nama_petugas }}</h2>
+      <div class="tanggal">
+         <span>Tanggal Print: {{ now()->format('d M Y') }}</span>
+         <span>
+            @if ($tanggal_filter != '')
+            Filter Data Dari Tanggal: {{ $tanggal_filter }}
+            @else
+            Semua Data
+            @endif
+         </span>
+      </div>
+   </div>
+   <table class="table">
       <thead>
          <tr>
             <th>No</th>
@@ -22,14 +85,16 @@
       <tbody>
          @foreach ($pengaduans as $key => $pengaduan)
          <tr>
-            <td>{{ $loop->iteration }}</td>
-            <td>{{ $pengaduan->user->nik }} - {{ $pengaduan->user->nama }}</td>
-            <td>{{ $pengaduan->judul_pengaduan }}</td>
-            <td>{{ $pengaduan->isi_pengaduan }}</td>
-            <td>{{ $pengaduan->tanggapan->isi_tanggapan }}</td>
+            <td>{{ $loop->iteration ?? 'N/A' }}</td>
+            <td>{{ $pengaduan->user->nik }} - {{ $pengaduan->user->nama ?? 'N/A' }}</td>
+            <td>{{ $pengaduan->judul_pengaduan ?? 'N/A' }}</td>
+            <td>{{ $pengaduan->isi_pengaduan ?? 'N/A' }}</td>
+            <td>{{ $pengaduan->tanggapan->isi_tanggapan ?? 'N/A' }}</td>
          </tr>
          @endforeach
       </tbody>
    </table>
+
 </body>
+
 </html>

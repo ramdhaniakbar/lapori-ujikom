@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Backsite;
 
+use Carbon\Carbon;
 use App\Models\Pengaduan;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class PengaduanController extends Controller
@@ -102,29 +103,34 @@ class PengaduanController extends Controller
 
     public function generate_laporan(Request $request)
     {
-
         if ($request['tanggal_1'] || $request['tanggal_2']) {
+
+            // get data filter
             $pengaduans = Pengaduan::whereBetween('created_at', [$request['tanggal_1'], $request['tanggal_2']])->with('tanggapan', 'user')->latest()->get();
+
+            // get date filter
+            $tanggal_filter = date('d-m-Y', strtotime($request['tanggal_1'])). ' - '. date('d-m-Y', strtotime($request['tanggal_2']));
 
             $data = [
                 'nama_petugas' => Auth::guard(session('guard'))->user()->nama,
                 'pengaduans' => $pengaduans,
-                // 'tanggal_print' => Carbon::now(),
+                'tanggal_filter' => $tanggal_filter,
             ];
 
-            $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data);
-            return $pdf->stream();
+            $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data)->setPaper('a3', 'landscape');
+            return $pdf->download(Str::random(20) . '.pdf');
+            
         } else {
             $pengaduans = Pengaduan::with('tanggapan', 'user')->latest()->get();
 
             $data = [
                 'nama_petugas' => Auth::guard(session('guard'))->user()->nama,
                 'pengaduans' => $pengaduans,
-                // 'tanggal_print' => Carbon::now(),
+                'tanggal_filter' => ''
             ];
 
-            $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data);
-            return $pdf->stream();
+            $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data)->setPaper('a3', 'landscape');
+            return $pdf->download(Str::random(20) . '.pdf');
         }
     }
 }

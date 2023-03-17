@@ -99,7 +99,8 @@
                                                 <div class="col-md-9 mx-auto">
                                                     <input type="date" id="tanggal_tanggapan" name="tanggal_tanggapan"
                                                         class="form-control" placeholder="example admin or users"
-                                                        value="{{old('tanggal_tanggapan')}}" autocomplete="off" required>
+                                                        value="{{old('tanggal_tanggapan')}}" autocomplete="off"
+                                                        required>
 
                                                     @if($errors->has('tanggal_tanggapan'))
                                                     <p style="font-style: bold; color: red;">{{
@@ -113,10 +114,12 @@
                                                 <label class="col-md-3 label-control" for="pengaduan_id">Ke
                                                     Pengaduan<code style="color:red;">required</code></label>
                                                 <div class="col-md-9 mx-auto">
-                                                    <select name="pengaduan_id" id="pengaduan_id" class="form-control">
+                                                    <select name="pengaduan_id" id="pengaduan_id"
+                                                        class="select2 form-control">
                                                         <option selected disabled>Pilih Pengaduan</option>
                                                         @foreach ($pengaduans_pending as $key => $pengaduan)
-                                                        <option value="{{ $pengaduan->id }}">{{ $pengaduan->user->nik }} -
+                                                        <option value="{{ $pengaduan->id }}">{{ $pengaduan->user->nik }}
+                                                            -
                                                             {{
                                                             $pengaduan->judul_pengaduan }}</option>
                                                         @endforeach
@@ -153,18 +156,22 @@
             <div class="card-header">
                 <h4 class="card-title mb-2">Generate Laporan</h4>
                 <form action="{{ route('backsite.pengaduan.generate_laporan') }}" method="get">
-                    
+
                     <div class="form-group">
-                        <label class="label-control" for="tanggal_1">Dari Tanggal<code style="color:red;">required</code></label>
-                        <input type="date" name="tanggal_1" id="tanggal_1" min="1" max="31" class="form-control" value="{{ old('tanggal_1') }}">
+                        <label class="label-control" for="tanggal_1">Dari Tanggal<code
+                                style="color:red;">required</code></label>
+                        <input type="date" name="tanggal_1" id="tanggal_1" min="1" max="31" class="form-control"
+                            value="{{ old('tanggal_1') }}">
                     </div>
 
                     <div class="form-group">
-                        <label class="label-control" for="tanggal_2">Dari Tanggal<code style="color:red;">required</code></label>
-                        <input type="date" name="tanggal_2" id="tanggal_2" min="1" max="31" class="form-control" value="{{ old('tanggal_2') }}">
+                        <label class="label-control" for="tanggal_2">Dari Tanggal<code
+                                style="color:red;">required</code></label>
+                        <input type="date" name="tanggal_2" id="tanggal_2" min="1" max="31" class="form-control"
+                            value="{{ old('tanggal_2') }}">
                     </div>
-                
-                    <button type="submit" class="btn btn-primary">Filter</button>
+
+                    <button type="submit" class="btn btn-danger"> <i class="la la-print"></i> Generate</button>
                 </form>
             </div>
         </div>
@@ -201,7 +208,7 @@
                                                     <th>Isi Pengaduan</th>
                                                     <th>Lokasi Kejadian</th>
                                                     <th>Waktu Kejadian</th>
-                                                    <th>Status</th>
+                                                    <th style="text-align:center;">Status</th>
                                                     <th style="text-align:center; width:150px;">Action</th>
                                                 </tr>
                                             </thead>
@@ -211,8 +218,20 @@
                                                     <td>{{ $pengaduan->judul_pengaduan }}</td>
                                                     <td>{{ Str::limit($pengaduan->isi_pengaduan, 70, '...') }}</td>
                                                     <td>{{ $pengaduan->lokasi_kejadian }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($pengaduan->tanggal_kejadian)) }}</td>
-                                                    <td>{{ $pengaduan->status }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($pengaduan->tanggal_kejadian)) }}
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="badge badge-pill
+                                                            @if ($pengaduan->status == 'pending') badge-secondary
+                                                            @elseif ($pengaduan->status == 'proses') badge-warning
+                                                            @elseif ($pengaduan->status == 'ditolak') badge-danger
+                                                            @else badge-cyan
+                                                            @endif
+                                                            " style="padding: 8px 10px; text-transform: capitalize">{{
+                                                            $pengaduan->status
+                                                            }}</span>
+
+                                                    </td>
                                                     <td class="text-center">
 
                                                         <div class="btn-group mr-1 mb-1">
@@ -236,33 +255,39 @@
                                                                 @endif
 
                                                                 @if ($pengaduan->status == 'proses')
-                                                                <form action="{{ route('backsite.pengaduan.status_selesai', $pengaduan->id) }}" method="POST"
+                                                                <form
+                                                                    action="{{ route('backsite.pengaduan.status_selesai', $pengaduan->id) }}"
+                                                                    method="POST"
                                                                     onsubmit="return confirm('Apa kamu yakin ingin menolak pengaduan ini?');">
                                                                     <input type="hidden" name="_method" value="PUT">
                                                                     <input type="hidden" name="_token"
                                                                         value="{{ csrf_token() }}">
                                                                     <input type="submit" class="dropdown-item"
                                                                         value="Selesai">
-                                                                  </form>
+                                                                </form>
                                                                 @endif
 
                                                                 @if ($pengaduan->status != 'ditolak')
-                                                                  <form action="{{ route('backsite.pengaduan.tolak_status', $pengaduan->id) }}" method="POST"
+                                                                <form
+                                                                    action="{{ route('backsite.pengaduan.tolak_status', $pengaduan->id) }}"
+                                                                    method="POST"
                                                                     onsubmit="return confirm('Apa kamu yakin ingin menolak pengaduan ini?');">
                                                                     <input type="hidden" name="_method" value="PUT">
                                                                     <input type="hidden" name="_token"
                                                                         value="{{ csrf_token() }}">
                                                                     <input type="submit" class="dropdown-item"
                                                                         value="Tolak">
-                                                                  </form>
-                                                                @else 
-                                                                <form action="{{ route('backsite.pengaduan.status_kembali', $pengaduan->id) }}" method="POST"
-                                                                  onsubmit="return confirm('Apa kamu yakin ingin mengembalikan status pengaduan ini?');">
-                                                                  <input type="hidden" name="_method" value="PUT">
-                                                                  <input type="hidden" name="_token"
-                                                                      value="{{ csrf_token() }}">
-                                                                  <input type="submit" class="dropdown-item"
-                                                                      value="Kembalikan Status">
+                                                                </form>
+                                                                @else
+                                                                <form
+                                                                    action="{{ route('backsite.pengaduan.status_kembali', $pengaduan->id) }}"
+                                                                    method="POST"
+                                                                    onsubmit="return confirm('Apa kamu yakin ingin mengembalikan status pengaduan ini?');">
+                                                                    <input type="hidden" name="_method" value="PUT">
+                                                                    <input type="hidden" name="_token"
+                                                                        value="{{ csrf_token() }}">
+                                                                    <input type="submit" class="dropdown-item"
+                                                                        value="Kembalikan Status">
                                                                 </form>
                                                                 @endif
 
@@ -304,7 +329,7 @@
 
 @push('after-script')
 <script>
-  jQuery(document).ready(function($){
+    jQuery(document).ready(function($){
            $('#mymodal').on('show.bs.modal', function(e){
                var button = $(e.relatedTarget);
                var modal = $(this);
@@ -322,18 +347,18 @@
 </script>
 
 <div class="modal fade" id="mymodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h5 class="modal-title"></h5>
-           <button class="btn close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-           </button>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button class="btn close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <i class="fa fa-spinner fa spin"></i>
+            </div>
         </div>
-        <div class="modal-body">
-           <i class="fa fa-spinner fa spin"></i>
-        </div>
-     </div>
-  </div>
+    </div>
 </div>
 @endpush

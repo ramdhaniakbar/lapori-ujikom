@@ -66,23 +66,33 @@
                                             <thead>
                                                 <tr>
                                                     <th>Isi Tanggapan</th>
-                                                    <th>Tanggal Tanggapan</th>
                                                     <th>Judul Pengaduan</th>
-                                                    <th>Status</th>
+                                                    <th style="text-align:center; width:120px;">Status</th>
                                                     <th>Nama Petugas</th>
                                                     <th>Role</th>
+                                                    <th>Tanggal Tanggapan</th>
                                                     <th style="text-align:center; width:150px;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @forelse($tanggapans as $key => $tanggapan)
                                                 <tr data-entry-id="{{ $tanggapan->id }}">
-                                                  <td>{{ Str::limit($tanggapan->isi_tanggapan, 70, '...') }}</td>
-                                                  <td>{{ date('d-m-Y', strtotime($tanggapan->tanggal_tanggapan)) }}</td>
-                                                  <td>{{ $tanggapan->pengaduan->judul_pengaduan }}</td>
-                                                  <td>{{ $tanggapan->pengaduan->status }}</td>
+                                                    <td>{{ Str::limit($tanggapan->isi_tanggapan, 70, '...') }}</td>
+                                                    </td>
+                                                    <td>{{ $tanggapan->pengaduan->judul_pengaduan }}</td>
+                                                    <td class="text-center">
+                                                        <span class="badge badge-pill
+                                                    @if ($tanggapan->pengaduan->status == 'pending') badge-secondary
+                                                    @elseif ($tanggapan->pengaduan->status == 'proses') badge-warning
+                                                    @elseif ($tanggapan->pengaduan->status == 'ditolak') badge-danger
+                                                    @else badge-cyan
+                                                    @endif
+                                                    " style="padding: 8px 10px; text-transform: capitalize">{{
+                                                            $tanggapan->pengaduan->status }}</span>
+                                                    </td>
                                                     <td>{{ $tanggapan->petugas->nama }}</td>
                                                     <td>{{ $tanggapan->petugas->role }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($tanggapan->tanggal_tanggapan)) }}
                                                     <td class="text-center">
 
                                                         <div class="btn-group mr-1 mb-1">
@@ -141,7 +151,7 @@
 
 @push('after-script')
 <script>
-  jQuery(document).ready(function($){
+    jQuery(document).ready(function($){
            $('#mymodal').on('show.bs.modal', function(e){
                var button = $(e.relatedTarget);
                var modal = $(this);
@@ -159,18 +169,18 @@
 </script>
 
 <div class="modal fade" id="mymodal" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-lg" role="document">
-     <div class="modal-content">
-        <div class="modal-header">
-           <h5 class="modal-title"></h5>
-           <button class="btn close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-           </button>
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+                <button class="btn close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <i class="fa fa-spinner fa spin"></i>
+            </div>
         </div>
-        <div class="modal-body">
-           <i class="fa fa-spinner fa spin"></i>
-        </div>
-     </div>
-  </div>
+    </div>
 </div>
 @endpush

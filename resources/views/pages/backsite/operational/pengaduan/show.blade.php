@@ -17,7 +17,16 @@
   </tr>
   <tr>
     <th>Status Pengaduan</th>
-    <td>{{ $pengaduan->status ?? 'N/A' }}</td>
+    <th>Status Pengaduan</th>
+    <td>
+      <span class="badge badge-pill
+            @if ($tanggapan->pengaduan->status == 'pending') badge-secondary
+            @elseif ($tanggapan->pengaduan->status == 'proses') badge-warning
+            @elseif ($tanggapan->pengaduan->status == 'ditolak') badge-danger
+            @else badge-cyan
+            @endif
+            " style="padding: 8px 10px; text-transform: capitalize">{{ $tanggapan->pengaduan->status ?? 'N/A' }}</span>
+    </td>
   </tr>
   <tr>
     <th>Foto Bukti</th>
@@ -32,7 +41,7 @@
       @else
         {{ 'N/A' }}
       @endif
-      "alt="foto bukti" height="150" width="300">
+      " alt="foto bukti" height="150" width="300">
     </td>
   </tr>
 </table>

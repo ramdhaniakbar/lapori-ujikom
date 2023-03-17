@@ -6,9 +6,7 @@
 
    <title>@yield('title') | {{ config('app.name', 'lapor!') }}</title>
 
-
    @include('includes.frontsite.style')
-
 
 </head>
 
