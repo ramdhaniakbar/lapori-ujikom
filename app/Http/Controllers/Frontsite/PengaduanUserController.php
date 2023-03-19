@@ -44,6 +44,7 @@ class PengaduanUserController extends Controller
      */
     public function store(StorePengaduanRequest $request): RedirectResponse
     {
+        // get all data from request
         $data = $request->all();
 
         $path = public_path('app/public/assets/file-pengaduan');
@@ -86,12 +87,16 @@ class PengaduanUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pengaduan $lapor): View
+    public function edit(Pengaduan $lapor)
     {
         $auth_pengaduan = Auth::guard(session('guard'))->user()->pengaduan()->pluck('id');
 
         if (!$auth_pengaduan->contains($lapor->id)) {
             return back()->with('error', 'Kamu tidak memiliki akses!');
+        }
+
+        if ($lapor->status == 'selesai') {
+            return back()->with('error', 'Status pengaduan sudah selesai.');
         }
 
         $kategori_pengaduans = KategoriPengaduan::orderBy('nama', 'asc')->get();

@@ -62,70 +62,69 @@
                     <p>Harap lengkapi input yang <code>required</code>, sebelum Anda mengklik tombol
                       kirim.</p>
                   </div>
-                 
+
                   <form class="form form-horizontal" action="{{ route('backsite.user.update', $user->id) }}"
-                      method="POST">
+                    method="POST">
 
-                      @method('PUT')
-                      @csrf
-                      <input type="hidden" id="password" name="password" class="form-control"
-                        placeholder="********" value="{{ isset($user) ? $user->password : '' }}" autocomplete="off"
-                        required>
+                    @method('PUT')
+                    @csrf
+                    <input type="hidden" id="password" name="password" class="form-control" placeholder="********"
+                      value="{{ isset($user) ? $user->password : '' }}" autocomplete="off" required>
 
-                      <div class="form-body">
-                          <div class="form-group row">
-                            <label class="col-md-3 label-control" for="nama">Nama Petugas<code
-                                  style="color:red;">required</code></label>
-                            <div class="col-md-9 mx-auto">
-                                <input type="text" id="nama" name="nama" class="form-control"
-                                  placeholder="contoh John" value="{{ isset($user) ? $user->nama : '' }}" autocomplete="off"
-                                  required>
-
-                                @if($errors->has('nama'))
-                                <p style="font-style: bold; color: red;">{{ $errors->first('nama') }}</p>
-                                @endif
-                            </div>
-                          </div>
-
-                          <div class="form-group row">
-                            <label class="col-md-3 label-control" for="email">Email<code
-                                  style="color:red;">required</code></label>
-                            <div class="col-md-9 mx-auto">
-                                <input type="email" id="email" name="email" class="form-control"
-                                  placeholder="contoh john@gmail.com" value="{{ isset($user) ? $user->email : '' }}" autocomplete="off"
-                                  required>
-
-                                @if($errors->has('email'))
-                                <p style="font-style: bold; color: red;">{{ $errors->first('email') }}</p>
-                                @endif
-                            </div>
-                          </div>
-
-                        <div class="form-group row">
-                        <label class="col-md-3 label-control" for="role">Role<code style="color:red;">required</code></label>
+                    <div class="form-body">
+                      <div class="form-group row">
+                        <label class="col-md-3 label-control" for="nama">Nama Petugas<code
+                            style="color:red;">required</code></label>
                         <div class="col-md-9 mx-auto">
-                            <select name="role" id="role" class="form-control">
-                                <option value="admin @if($user->role == 'admin') selected @endif">Admin</option>
-                                <option value="petugas @if($user->role == 'petugas') selected @endif">Petugas</option>
-                            </select>
+                          <input type="text" id="nama" name="nama" class="form-control" placeholder="contoh John"
+                            value="{{ isset($user) ? $user->nama : '' }}" autocomplete="off" required>
 
-                            @if($errors->has('role'))
-                            <p style="font-style: bold; color: red;">{{
-                                $errors->first('role')
-                                }}</p>
-                            @endif
+                          @if($errors->has('nama'))
+                          <p style="font-style: bold; color: red;">{{ $errors->first('nama') }}</p>
+                          @endif
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-md-3 label-control" for="email">Email<code
+                            style="color:red;">required</code></label>
+                        <div class="col-md-9 mx-auto">
+                          <input type="email" id="email" name="email" class="form-control"
+                            placeholder="contoh john@gmail.com" value="{{ isset($user) ? $user->email : '' }}"
+                            autocomplete="off" required>
+
+                          @if($errors->has('email'))
+                          <p style="font-style: bold; color: red;">{{ $errors->first('email') }}</p>
+                          @endif
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-md-3 label-control" for="role">Role<code
+                            style="color:red;">required</code></label>
+                        <div class="col-md-9 mx-auto">
+                          <select name="role" id="role" class="form-control">
+                            <option @if($user->role == 'admin') selected @endif value="admin">Admin</option>
+                            <option @if($user->role == 'petugas') selected @endif value="petugas">Petugas</option>
+                          </select>
+
+                          @if($errors->has('role'))
+                          <p style="font-style: bold; color: red;">{{
+                            $errors->first('role')
+                            }}</p>
+                          @endif
                         </div>
 
                       </div>
 
                       <div class="form-actions text-right">
-                          <button type="submit" style="width:120px;" class="btn btn-cyan"
-                            onclick="return confirm('Are you sure want to save this data ?')">
-                            <i class="la la-check-square-o"></i> Submit
-                          </button>
+                        <button type="submit" style="width:120px;" class="btn btn-cyan"
+                          onclick="return confirm('Are you sure want to save this data ?')">
+                          <i class="la la-check-square-o"></i> Submit
+                        </button>
                       </div>
-                    </form>
-                  
+                  </form>
+
                 </div>
               </div>
             </div>

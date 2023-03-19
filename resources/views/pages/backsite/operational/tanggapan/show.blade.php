@@ -59,6 +59,26 @@
 </table>
 
 <table class="table table-bordered">
+  <h2>Pengadu</h2>
+  <tr>
+    <th>NIK Pengadu</th>
+    <td>{{ $tanggapan->pengaduan->user->nik ?? 'N/A' }}</td>
+  </tr>
+  <tr>
+    <th>Nama Pengadu</th>
+    <td>{{ $tanggapan->pengaduan->user->nama ?? 'N/A' }}</td>
+  </tr>
+  <tr>
+    <th>Email Pengadu</th>
+    <td>{{ $tanggapan->pengaduan->user->email ?? 'N/A' }}</td>
+  </tr>
+  <tr>
+    <th>Telepon Pengadu</th>
+    <td>{{ $tanggapan->pengaduan->user->telepon ?? 'N/A' }}</td>
+  </tr>
+</table>
+
+<table class="table table-bordered">
   <h2>Petugas</h2>
   <tr>
     <th>Nama Petugas</th>

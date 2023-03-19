@@ -83,7 +83,6 @@ class PengaduanController extends Controller
     public function tolak_status(Pengaduan $pengaduan)
     {
         $tolak_status = $pengaduan->update(['status' => 'ditolak']);
-        // $tolak_status = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'ditolak']);
 
         toastr()->success('Pengaduan Berhasil Ditolak!');
 
@@ -93,8 +92,6 @@ class PengaduanController extends Controller
     public function status_kembali(Pengaduan $pengaduan)
     {
         $status_kembali = $pengaduan->update(['status' => 'pending']);
-
-        // $status_kembali = Pengaduan::where('id', $pengaduan->id)->update(['status' => 'pending']);
 
         toastr()->success('Status Pengaduan Berhasil Kembali!');
 
@@ -119,7 +116,7 @@ class PengaduanController extends Controller
 
             $pdf = Pdf::loadView('pages.backsite.operational.pengaduan.generate.index', $data)->setPaper('a3', 'landscape');
             return $pdf->download(Str::random(20) . '.pdf');
-            
+
         } else {
             $pengaduans = Pengaduan::with('tanggapan', 'user')->latest()->get();
 

@@ -17,15 +17,14 @@
   </tr>
   <tr>
     <th>Status Pengaduan</th>
-    <th>Status Pengaduan</th>
     <td>
       <span class="badge badge-pill
-            @if ($tanggapan->pengaduan->status == 'pending') badge-secondary
-            @elseif ($tanggapan->pengaduan->status == 'proses') badge-warning
-            @elseif ($tanggapan->pengaduan->status == 'ditolak') badge-danger
+            @if ($pengaduan->status == 'pending') badge-secondary
+            @elseif ($pengaduan->status == 'proses') badge-warning
+            @elseif ($pengaduan->status == 'ditolak') badge-danger
             @else badge-cyan
             @endif
-            " style="padding: 8px 10px; text-transform: capitalize">{{ $tanggapan->pengaduan->status ?? 'N/A' }}</span>
+            " style="padding: 8px 10px; text-transform: capitalize">{{ $pengaduan->status ?? 'N/A' }}</span>
     </td>
   </tr>
   <tr>

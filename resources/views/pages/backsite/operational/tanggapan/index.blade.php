@@ -91,7 +91,8 @@
                                                             $tanggapan->pengaduan->status }}</span>
                                                     </td>
                                                     <td>{{ $tanggapan->petugas->nama }}</td>
-                                                    <td>{{ $tanggapan->petugas->role }}</td>
+                                                    <td style="text-transform: capitalize">{{ $tanggapan->petugas->role
+                                                        }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($tanggapan->tanggal_tanggapan)) }}
                                                     <td class="text-center">
 
